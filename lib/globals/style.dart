@@ -47,6 +47,7 @@ class Style {
     ESelection2? t2Selection,
     ESelection3? t3Selection,
     double? fontSizeMultiplier,
+    TextDecoration? decoration,
   }) {
     Color localColor = Colors.white;
 
@@ -64,6 +65,7 @@ class Style {
       fontWeight: fontWeight,
       fontSize: fontSize * (fontSizeMultiplier ?? _fontSizeMultiplier),
       color: localColor,
+      decoration: decoration,
     );
   }
 
@@ -74,8 +76,12 @@ class Style {
     ESelection2 t2Selection = ESelection2.primary,
     ESelection3? t3Selection,
     double? fontSizeMultiplier,
+    TextDecoration? decoration,
+    double? decorationThickness,
+    List<Shadow>? shadows,
+    Color? decorationColor,
   }) {
-    Color localColor = Colors.white;
+    Color localColor = Colors.transparent;
     if (t3Colors[color] != null) {
       if (t3Colors[color]![t3Selection] != null) {
         localColor = t3Colors[color]![t3Selection]!;
@@ -90,6 +96,10 @@ class Style {
       fontWeight: fontWeight,
       fontSize: fontSize * (fontSizeMultiplier ?? _fontSizeMultiplier),
       color: localColor,
+      decoration: decoration,
+      decorationThickness: decorationThickness,
+      shadows: shadows,
+      decorationColor: decorationColor,
     );
   }
 }

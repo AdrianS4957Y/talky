@@ -13,11 +13,13 @@ dependencies:
   sign_in_button: ^3.2.0
   flutter_svg: ^2.0.10+1
   show_hide_password: ^0.0.2
+  keyboard_avoider: ^0.2.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+  flutter_launcher_icons: ^0.13.1
 
 flutter:
 
@@ -26,4 +28,14 @@ flutter:
   assets:
     - assets/google.svg
     - assets/email.svg
+    - assets/back.svg
+    
+  fonts:
+      - family: CustomIcons
+        fonts:
+          - asset: fonts/eye_icon.ttf
 
+flutter_icons:
+  android: "eye_icon"
+  ios: true
+  image_path: "assets/eye.svg"

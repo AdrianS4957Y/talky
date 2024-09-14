@@ -8,12 +8,18 @@ class SignButton extends StatefulWidget {
   final String text;
   final Color bgColor;
   final String? image;
+  final MainAxisAlignment mainAxisAlignment;
+  final TextStyle? textStyle;
+  final BoxDecoration? decoration;
   const SignButton({
     required this.onTapDown,
     required this.text,
     this.image,
     this.bgColor = const Color(0xFFFFFFFF),
     super.key,
+    this.mainAxisAlignment = MainAxisAlignment.start,
+    this.textStyle,
+    this.decoration,
   });
 
   @override
@@ -26,21 +32,23 @@ class SignButtonState extends State<SignButton> {
     return GestureDetector(
       onTapDown: widget.onTapDown,
       child: Container(
-        decoration: BoxDecoration(
-          color: widget.bgColor,
-          boxShadow: const [
-            BoxShadow(
-              blurRadius: 2,
-              offset: Offset(0, 1),
-              color: Color(0x19000000),
-            )
-          ],
-        ),
+        decoration: widget.decoration ??
+            BoxDecoration(
+              color: widget.bgColor,
+              boxShadow: const [
+                BoxShadow(
+                  blurRadius: 2,
+                  offset: Offset(0, 1),
+                  color: Color(0x19000000),
+                )
+              ],
+            ),
         padding: EdgeInsets.symmetric(
           horizontal: MediaQuery.of(context).size.width * 40 / Style.width,
           vertical: MediaQuery.of(context).size.height * 20 / Style.height,
         ),
         child: Row(
+          mainAxisAlignment: widget.mainAxisAlignment,
           children: widget.image != null
               ? [
                   SvgPicture.asset(widget.image!),
@@ -49,21 +57,23 @@ class SignButtonState extends State<SignButton> {
                   ),
                   Text(
                     widget.text,
-                    style: Style.inter(
-                      color: EColors.black,
-                      t3Selection: ESelection3.primary,
-                      fontSize: 16,
-                    ),
+                    style: widget.textStyle ??
+                        Style.inter(
+                          color: EColors.black,
+                          t3Selection: ESelection3.primary,
+                          fontSize: 16,
+                        ),
                   ),
                 ]
               : [
                   Text(
                     widget.text,
-                    style: Style.inter(
-                      color: EColors.black,
-                      t3Selection: ESelection3.primary,
-                      fontSize: 16,
-                    ),
+                    style: widget.textStyle ??
+                        Style.inter(
+                          color: EColors.black,
+                          t3Selection: ESelection3.primary,
+                          fontSize: 16,
+                        ),
                   ),
                 ],
         ),

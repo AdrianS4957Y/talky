@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talky/globals/enum_colors.dart';
+import 'package:talky/globals/routes.dart';
 import 'package:talky/globals/style.dart';
 import 'package:talky/sign/or.dart';
 import 'package:talky/sign/sign_button.dart';
@@ -73,7 +74,12 @@ class SignUpState extends State<SignUp> {
                 ),
               ),
               SignButton(
-                onTapDown: (details) {},
+                onTapDown: (details) {
+                  Navigator.pushNamed(
+                    context,
+                    Routes.signUpWithMail,
+                  );
+                },
                 image: "assets/email.svg",
                 text: "Continue with Mail",
               ),
@@ -88,13 +94,21 @@ class SignUpState extends State<SignUp> {
                   fontSize: 14,
                 ),
               ),
-              Text(
-                "Sign in here",
-                style: Style.inter(
-                  color: EColors.blue,
-                  t3Selection: ESelection3.primary,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
+              GestureDetector(
+                onTapDown: (details) {
+                  Navigator.pushReplacementNamed(
+                    context,
+                    Routes.signIn,
+                  );
+                },
+                child: Text(
+                  "Sign in here",
+                  style: Style.inter(
+                    color: EColors.blue,
+                    t3Selection: ESelection3.primary,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],

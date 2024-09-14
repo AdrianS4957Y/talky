@@ -76,7 +76,10 @@ class SignInState extends State<SignIn> {
               ),
               SignButton(
                 onTapDown: (details) {
-                  Navigator.pushNamed(context, Routes.signInWithMail);
+                  Navigator.pushNamed(
+                    context,
+                    Routes.signInWithMail,
+                  );
                 },
                 image: "assets/email.svg",
                 text: "Continue with Mail",
@@ -92,13 +95,21 @@ class SignInState extends State<SignIn> {
                   fontSize: 14,
                 ),
               ),
-              Text(
-                "Sign up here",
-                style: Style.inter(
-                  color: EColors.blue,
-                  t3Selection: ESelection3.primary,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
+              GestureDetector(
+                onTapDown: (details) {
+                  Navigator.pushReplacementNamed(
+                    context,
+                    Routes.signUp,
+                  );
+                },
+                child: Text(
+                  "Sign up here",
+                  style: Style.inter(
+                    color: EColors.blue,
+                    t3Selection: ESelection3.primary,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],

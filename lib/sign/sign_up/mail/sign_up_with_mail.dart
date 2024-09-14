@@ -4,20 +4,21 @@ import 'package:show_hide_password/show_hide_password.dart';
 import 'package:talky/globals/enum_colors.dart';
 import 'package:talky/globals/routes.dart';
 import 'package:talky/globals/style.dart';
+import 'package:talky/sign/custom_checkbox.dart';
 import 'package:talky/sign/eye_icon.dart';
 import 'package:talky/sign/input_field.dart';
 import 'package:talky/sign/sign_button.dart';
 
-class SignInWithMail extends StatefulWidget {
-  const SignInWithMail({
+class SignUpWithMail extends StatefulWidget {
+  const SignUpWithMail({
     super.key,
   });
 
   @override
-  SignInWithMailState createState() => SignInWithMailState();
+  SignUpWithMailState createState() => SignUpWithMailState();
 }
 
-class SignInWithMailState extends State<SignInWithMail> {
+class SignUpWithMailState extends State<SignUpWithMail> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -105,7 +106,7 @@ class SignInWithMailState extends State<SignInWithMail> {
                       MediaQuery.of(context).size.height * 40 / Style.height,
                 ),
                 Text(
-                  "Sign in with Mail",
+                  "Sign up with Mail",
                   style: Style.inter(
                     color: EColors.black,
                     t3Selection: ESelection3.primary,
@@ -165,11 +166,73 @@ class SignInWithMailState extends State<SignInWithMail> {
                 ),
                 SizedBox(
                   height:
-                      MediaQuery.of(context).size.height * 163 / Style.height,
+                      MediaQuery.of(context).size.height * 40 / Style.height,
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height *
+                          24 /
+                          Style.height,
+                      child: CustomCheckbox(
+                        borderColor:
+                            Style.t3Colors[EColors.black]![ESelection3.light],
+                        size: MediaQuery.of(context).size.width *
+                            24 /
+                            Style.width,
+                      ),
+                      // Checkbox(
+                      //   value: true,
+                      //   onChanged: (isChecked) {},
+                      //   semanticLabel: "I agree to the terms and conditions",
+                      // ),
+                    ),
+                    SizedBox(
+                      width:
+                          MediaQuery.of(context).size.width * 10 / Style.width,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        text: "I agree to the ",
+                        style: Style.inter(
+                          color: EColors.black,
+                          fontSize: 12,
+                          decorationColor: Colors.black,
+                          shadows: [
+                            const Shadow(
+                              color: Colors.black,
+                              offset: Offset(0, -2),
+                            ),
+                          ],
+                        ),
+                        children: [
+                          TextSpan(
+                            text: "terms & conditions",
+                            style: Style.inter(
+                              color: EColors.black,
+                              fontSize: 12,
+                              decoration: TextDecoration.underline,
+                              decorationColor: Colors.black,
+                              shadows: [
+                                const Shadow(
+                                  color: Colors.black,
+                                  offset: Offset(0, -2),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height:
+                      MediaQuery.of(context).size.height * 99 / Style.height,
                 ),
                 SignButton(
                   onTapDown: (details) {},
-                  text: "Sign in",
+                  text: "Sign up",
                   mainAxisAlignment: MainAxisAlignment.center,
                   // bgColor: Style.t2Colors[EColors.blue]![ESelection2.primary]!,
                   textStyle: Style.inter(
@@ -189,7 +252,7 @@ class SignInWithMailState extends State<SignInWithMail> {
                       MediaQuery.of(context).size.height * 30 / Style.height,
                 ),
                 Text(
-                  "Don’t have an account?",
+                  "Already have an account?",
                   style: Style.inter(
                     color: EColors.black,
                     t3Selection: ESelection3.primary,
@@ -199,10 +262,10 @@ class SignInWithMailState extends State<SignInWithMail> {
                 GestureDetector(
                   onTapDown: (details) {
                     Navigator.pushReplacementNamed(
-                        context, Routes.signUpWithMail);
+                        context, Routes.signInWithMail);
                   },
                   child: Text(
-                    "Sign up here",
+                    "Sign in here",
                     style: Style.inter(
                       color: EColors.blue,
                       t3Selection: ESelection3.primary,
