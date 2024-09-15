@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:show_hide_password/show_hide_password.dart';
 import 'package:talky/globals/enum_colors.dart';
 import 'package:talky/globals/routes.dart';
 import 'package:talky/globals/style.dart';
+import 'package:talky/provider.dart';
 import 'package:talky/sign/custom_checkbox.dart';
 import 'package:talky/sign/eye_icon.dart';
 import 'package:talky/sign/input_field.dart';
@@ -19,6 +21,19 @@ class SignUpWithMail extends StatefulWidget {
 }
 
 class SignUpWithMailState extends State<SignUpWithMail> {
+  String email = '';
+  String password = "";
+  late FireProvider provider;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    provider = Provider.of<FireProvider>(
+      context,
+      listen: false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -118,9 +133,12 @@ class SignUpWithMailState extends State<SignUpWithMail> {
                   height:
                       MediaQuery.of(context).size.height * 40 / Style.height,
                 ),
-                const InputField(
+                InputField(
                   autoFocus: true,
                   hint: "Enter your mail address",
+                  onChanged: (str) {
+                    email = str;
+                  },
                 ),
                 SizedBox(
                   height:
@@ -132,6 +150,9 @@ class SignUpWithMailState extends State<SignUpWithMail> {
                     return InputField(
                       obscure: hidePassword,
                       hint: "Enter your password",
+                      onChanged: (str) {
+                        password = str;
+                      },
                     );
                   },
                 ),
@@ -231,7 +252,9 @@ class SignUpWithMailState extends State<SignUpWithMail> {
                       MediaQuery.of(context).size.height * 99 / Style.height,
                 ),
                 SignButton(
-                  onTapDown: (details) {},
+                  onTapDown: (details) {
+                    provider.controller.signUpWithMail(email, password);
+                  },
                   text: "Sign up",
                   mainAxisAlignment: MainAxisAlignment.center,
                   // bgColor: Style.t2Colors[EColors.blue]![ESelection2.primary]!,

@@ -7,12 +7,14 @@ class InputField extends StatefulWidget {
   final bool? autoFocus;
   final String? hint;
   final TextStyle? hintStyle;
+  final void Function(String)? onChanged;
   const InputField({
     super.key,
     this.obscure,
     this.autoFocus,
     this.hint,
     this.hintStyle,
+    this.onChanged,
   });
 
   @override
@@ -23,6 +25,7 @@ class InputFieldState extends State<InputField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: widget.onChanged,
       autofocus: widget.autoFocus ?? false,
       decoration: InputDecoration(
         hintText: widget.hint,

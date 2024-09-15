@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "335802907028",
+    "project_id": "talky-by-adrians4957y",
+    "storage_bucket": "talky-by-adrians4957y.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:335802907028:android:80e0683eb664ba21097781",
+        "android_client_info": {
+          "package_name": "com.adrians4957y.talky"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcbWRYKAvyCq2CkjI6fSSD46aeMMxsgAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

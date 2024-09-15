@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:talky/globals/routes.dart';
+import 'package:talky/provider.dart';
 import 'package:talky/sign/or.dart';
 import 'package:talky/sign/sign_button.dart';
 
@@ -16,6 +18,13 @@ class SignIn extends StatefulWidget {
 }
 
 class SignInState extends State<SignIn> {
+  late FireProvider provider;
+  @override
+  void initState() {
+    provider = Provider.of<FireProvider>(context, listen: false);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -60,7 +69,9 @@ class SignInState extends State<SignIn> {
                 height: MediaQuery.of(context).size.height * 230 / Style.height,
               ),
               SignButton(
-                onTapDown: (details) {},
+                onTapDown: (details) {
+                  provider.controller.signInWithGoogle();
+                },
                 image: "assets/google.svg",
                 text: "Sign in with Google",
               ),
