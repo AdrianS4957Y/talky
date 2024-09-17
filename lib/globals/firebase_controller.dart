@@ -63,15 +63,19 @@ class FirebaseController {
       if (googleUser == null) {
         return null;
       }
-      final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
       );
       return await FirebaseAuth.instance.signInWithCredential(credential);
     } on FirebaseAuthException {
       return null;
     }
+  }
+
+  User? getUser() {
+    return _auth.currentUser;
   }
 }

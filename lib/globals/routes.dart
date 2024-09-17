@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talky/sign/otp/otp.dart';
 import 'package:talky/sign/sign_in/mail/sign_in_with_mail.dart';
 import 'package:talky/sign/sign_up/mail/sign_up_with_mail.dart';
 import 'package:talky/sign/sign_in/sign_in.dart';
@@ -11,6 +12,7 @@ class Routes {
   static const signInWithMail = "/signInWithMail";
   static const signUp = "/signUp";
   static const signUpWithMail = "/signUpWithMail";
+  static const otp = "/otp";
   static Route<dynamic> generateRoutes(RouteSettings settings) {
     final WidgetBuilder builder = switch (settings.name) {
       signIn => (context) => const SignIn(),
@@ -18,7 +20,8 @@ class Routes {
       signUp => (context) => const SignUp(),
       splash => (context) => const SplashScreen(),
       signUpWithMail => (context) => const SignUpWithMail(),
-      _ => (context) => const SplashScreen(),
+      otp => (context) => const Otp(),
+      _ => (context) => const Otp(),
     };
     return MaterialPageRoute(
       settings: settings,
