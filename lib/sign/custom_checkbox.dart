@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomCheckbox extends StatefulWidget {
   final Color? borderColor;
   final double? size;
-  final Function(bool?)? onChanged;
+  final Function(bool)? onChanged;
   const CustomCheckbox({
     super.key,
     this.borderColor,
@@ -37,12 +37,10 @@ class _CustomCheckboxState extends State<CustomCheckbox> {
         child: Checkbox(
           value: isChecked,
           onChanged: (bool? value) {
+            isChecked = value ?? false;
             if (widget.onChanged != null) {
               widget.onChanged!(isChecked);
             }
-            setState(() {
-              isChecked = value!;
-            });
           },
           activeColor: Colors.blue,
           checkColor: Colors.white,

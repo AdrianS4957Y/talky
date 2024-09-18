@@ -7,6 +7,7 @@ class InputField extends StatefulWidget {
   final bool? autoFocus;
   final String? hint;
   final TextStyle? hintStyle;
+  final String? Function(String?)? validator;
   final void Function(String)? onChanged;
   const InputField({
     super.key,
@@ -15,6 +16,7 @@ class InputField extends StatefulWidget {
     this.hint,
     this.hintStyle,
     this.onChanged,
+    this.validator,
   });
 
   @override
@@ -24,7 +26,7 @@ class InputField extends StatefulWidget {
 class InputFieldState extends State<InputField> {
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       onChanged: widget.onChanged,
       autofocus: widget.autoFocus ?? false,
       decoration: InputDecoration(
@@ -56,6 +58,7 @@ class InputFieldState extends State<InputField> {
       cursorColor: Style.t2Colors[EColors.blue]![ESelection2.primary]!,
       cursorWidth: 1,
       obscureText: widget.obscure ?? false,
+      validator: widget.validator ?? (value) => value,
     );
   }
 }

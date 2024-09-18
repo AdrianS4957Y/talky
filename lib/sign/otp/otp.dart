@@ -1,13 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:show_hide_password/show_hide_password.dart';
+import 'package:provider/provider.dart';
 import 'package:talky/globals/enum_colors.dart';
 import 'package:talky/globals/routes.dart';
 import 'package:talky/globals/style.dart';
-import 'package:talky/sign/custom_checkbox.dart';
-import 'package:talky/sign/eye_icon.dart';
-import 'package:talky/sign/input_field.dart';
+import 'package:talky/provider.dart';
+import 'package:talky/sign/sign_button.dart';
 
 class Otp extends StatefulWidget {
   const Otp({
@@ -19,8 +19,25 @@ class Otp extends StatefulWidget {
 }
 
 class OtpState extends State<Otp> {
+  late FireProvider provider;
+  String otp = '';
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    provider = Provider.of<FireProvider>(
+      context,
+      listen: false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    User? user = provider.controller.getUser();
+    if (user != null) {
+      if (provider.controller.isVerified(user)) {
+        Navigator.pushNamed(context, Routes.signUpProfile);
+      }
+    }
     return Container(
       color: Style.t3Colors[EColors.background]![ESelection3.primary],
       child: Scaffold(
@@ -106,7 +123,7 @@ class OtpState extends State<Otp> {
                       MediaQuery.of(context).size.height * 40 / Style.height,
                 ),
                 Text(
-                  "Enter the 4 digit codes we send to you",
+                  "Enter the 6 digit codes we send to you",
                   textAlign: TextAlign.center,
                   style: Style.inter(
                     color: EColors.black,
@@ -120,23 +137,86 @@ class OtpState extends State<Otp> {
                       MediaQuery.of(context).size.height * 40 / Style.height,
                 ),
                 OtpTextField(
+                  numberOfFields: 6,
                   borderRadius: BorderRadius.circular(8),
                   borderColor:
                       Style.t3Colors[EColors.black]![ESelection3.light]!,
                   showFieldAsBox: true,
                   fieldWidth:
-                      MediaQuery.of(context).size.width * 60 / Style.width,
+                      MediaQuery.of(context).size.width * 40 / Style.width,
                   fieldHeight:
-                      MediaQuery.of(context).size.height * 60 / Style.height,
+                      MediaQuery.of(context).size.height * 40 / Style.height,
                   textStyle: Style.inter(
                     color: EColors.black,
-                    fontSize: 24,
+                    fontSize: 20,
                     fontWeight: FontWeight.w600,
                     t3Selection: ESelection3.primary,
                   ),
                   contentPadding: EdgeInsets.only(
                     bottom:
-                        MediaQuery.of(context).size.height * 20 / Style.height,
+                        MediaQuery.of(context).size.height * 10 / Style.height,
+                  ),
+                  // onCodeChanged: (text) {
+                  //   otp = text;
+                  // },
+                  onSubmit: (text) {
+                    otp = text;
+                  },
+                ),
+                SizedBox(
+                  height:
+                      MediaQuery.of(context).size.height * 252 / Style.height,
+                ),
+                SignButton(
+                  onTapDown: (details) {
+                    final verified =
+                        provider.controller.verifyEmail(otp, context);
+                    if (verified) {
+                      Navigator.pushNamed(context, Routes.signUpProfile);
+                    }
+                  },
+                  text: "Sign up",
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  // bgColor: Style.t2Colors[EColors.blue]![ESelection2.primary]!,
+                  textStyle: Style.inter(
+                    color: EColors.background,
+                    t3Selection: ESelection3.primary,
+                    fontSize: 18,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Style.t2Colors[EColors.blue]![ESelection2.primary]!,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(8),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height:
+                      MediaQuery.of(context).size.height * 30 / Style.height,
+                ),
+                Text(
+                  "Already have an account?",
+                  style: Style.inter(
+                    color: EColors.black,
+                    t3Selection: ESelection3.primary,
+                    fontSize: 14,
+                  ),
+                ),
+                GestureDetector(
+                  onTapDown: (details) {
+                    Navigator.pushReplacementNamed(
+                      context,
+                      Routes.signInWithMail,
+                    );
+                  },
+                  child: Text(
+                    "Sign in here",
+                    style: Style.inter(
+                      color: EColors.blue,
+                      t3Selection: ESelection3.primary,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],

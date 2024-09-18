@@ -12,21 +12,20 @@ import 'package:talky/sign/eye_icon.dart';
 import 'package:talky/sign/input_field.dart';
 import 'package:talky/sign/sign_button.dart';
 
-class SignUpWithMail extends StatefulWidget {
-  const SignUpWithMail({
+class SignUpProfile extends StatefulWidget {
+  const SignUpProfile({
     super.key,
   });
 
   @override
-  SignUpWithMailState createState() => SignUpWithMailState();
+  SignUpProfileState createState() => SignUpProfileState();
 }
 
-class SignUpWithMailState extends State<SignUpWithMail> {
+class SignUpProfileState extends State<SignUpProfile> {
   String email = '';
   String password = "";
   bool checked = false;
   late FireProvider provider;
-  final _formKey = GlobalKey<FormState>();
 
   @override
   void didChangeDependencies() {
@@ -93,7 +92,7 @@ class SignUpWithMailState extends State<SignUpWithMail> {
           ),
           child: SingleChildScrollView(
             child: Form(
-              key: _formKey,
+              autovalidateMode: AutovalidateMode.always,
               child: Column(
                 children: [
                   Align(
@@ -151,10 +150,9 @@ class SignUpWithMailState extends State<SignUpWithMail> {
                           const EmailValidator(),
                         ],
                       );
-                      //
                       return validator.validate(
-                        label: "Email",
-                        value: (value ?? '').trim(),
+                        label: "Required",
+                        value: value,
                       );
                     },
                   ),
@@ -180,9 +178,8 @@ class SignUpWithMailState extends State<SignUpWithMail> {
                               ),
                             ],
                           );
-                          //
                           return validator.validate(
-                            label: "Password",
+                            label: "Required",
                             value: value,
                           );
                         },
@@ -291,20 +288,10 @@ class SignUpWithMailState extends State<SignUpWithMail> {
                       if (!checked) {
                         return;
                       }
-                      if (_formKey.currentState!.validate()) {
-                        provider.controller
-                            .signUpWithMail(email.trim(), password, context)
-                            .then((value) {
-                          if (value != null) {
-                            provider.controller.sendEmailVerification(context);
-                            Navigator.pushNamed(context, Routes.otp);
-                          }
-                        });
-                      }
+                      Navigator.pushNamed(context, Routes.otp);
                     },
                     text: "Sign up",
                     mainAxisAlignment: MainAxisAlignment.center,
-                    // bgColor: Style.t2Colors[EColors.blue]![ESelection2.primary]!,
                     textStyle: Style.inter(
                       color: EColors.background,
                       t3Selection: ESelection3.primary,

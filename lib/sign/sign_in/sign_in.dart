@@ -70,7 +70,7 @@ class SignInState extends State<SignIn> {
               ),
               SignButton(
                 onTapDown: (details) {
-                  provider.controller.signInWithGoogle();
+                  provider.controller.signInWithGoogle(context);
                 },
                 image: "assets/google.svg",
                 text: "Sign in with Google",
